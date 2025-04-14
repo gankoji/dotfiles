@@ -4,4 +4,14 @@ if status is-interactive
     zoxide init fish | source
     atuin init fish --disable-ctrl-r | source
     set -gx EDITOR nvim
+    set -gx OPENAI_API_KEY $(gopass show ai/openai-key)
 end
+
+
+# BEGIN opam configuration
+# This is useful if you're using opam as it adds:
+#   - the correct directories to the PATH
+#   - auto-completion for the opam binary
+# This section can be safely removed at any time if needed.
+test -r '/home/jacbaile/.opam/opam-init/init.fish' && source '/home/jacbaile/.opam/opam-init/init.fish' > /dev/null 2> /dev/null; or true
+# END opam configuration
