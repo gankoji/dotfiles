@@ -4,7 +4,9 @@ require("config.lazy")
 require("lspconfig").ts_ls.setup({})
 require("lspconfig").pyright.setup({})
 
-require("cmp").setup({
+local cmp = require("cmp")
+
+cmp.setup({
   sources = {
     { name = "cmp_ai" },
   },
@@ -18,14 +20,24 @@ cmp_ai:setup({
   provider_options = {
     model = "gpt-4",
   },
-  notify = true,
-  notify_callback = function(msg)
-    vim.notify(msg)
-  end,
+  notify = false,
   run_on_every_keystroke = true,
-  ignored_file_types = {
-    -- default is not to ignore
-    -- uncomment to ignore in lua:
-    -- lua = true
+})
+
+local compare = require("cmp.config.compare")
+cmp.setup({
+  sorting = {
+    priority_weight = 2,
+    comparators = {
+      require("cmp_ai.compare"),
+      compare.offset,
+      compare.exact,
+      compare.score,
+      compare.recently_used,
+      compare.kind,
+      compare.sort_text,
+      compare.length,
+      compare.order,
+    },
   },
 })
