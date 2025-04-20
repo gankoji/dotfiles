@@ -41,3 +41,5 @@ cmp.setup({
     },
   },
 })
+
+vim.cmd("set wrap")
