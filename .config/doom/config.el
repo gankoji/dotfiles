@@ -27,41 +27,41 @@
 ;; Use Consult more places!
 (define-key global-map [remap +vertico/switch-workspace-buffer] #'consult-buffer)
 ;; GPTel config - LLMs in Emacs!
-(use-package! gptel
-  :config
-  (setq! gptel-api-key "")
-  (map! :leader
-        :prefix ("l" . "LLMs") ; Leader + g
-        :desc "Add to context"                 "a" #'gptel-add
-        :desc "Complete at point"              "c" #'gptel-complete-at-point
-        :desc "Edit at point"                  "e" #'gptel-edit-at-point
-        :desc "Add file to context"            "f" #'gptel-add-file
-        :desc "Minor mode for LLM interaction" "m" #'gptel-mode
-        :desc "Choose configuration"           "o" #'gptel-menu
-        :desc "Rewrite selection"              "r" #'gptel-rewrite
-        :desc "Send to LLM"                    "s" #'gptel-send
-        :desc "Abort the current prompt"       "x" #'gptel-abort
-        ))
+;; (use-package! gptel
+;;   :config
+;;   (setq! gptel-api-key "")
+;;   (map! :leader
+;;         :prefix ("l" . "LLMs") ; Leader + g
+;;         :desc "Add to context"                 "a" #'gptel-add
+;;         :desc "Complete at point"              "c" #'gptel-complete-at-point
+;;         :desc "Edit at point"                  "e" #'gptel-edit-at-point
+;;         :desc "Add file to context"            "f" #'gptel-add-file
+;;         :desc "Minor mode for LLM interaction" "m" #'gptel-mode
+;;         :desc "Choose configuration"           "o" #'gptel-menu
+;;         :desc "Rewrite selection"              "r" #'gptel-rewrite
+;;         :desc "Send to LLM"                    "s" #'gptel-send
+;;         :desc "Abort the current prompt"       "x" #'gptel-abort
+;;         ))
+;;
+;; (gptel-make-anthropic "Claude"
+;;   :stream t
+;;   :key "")
+;;
+;; (setq!
+;;  gptel-model 'gemini-2.0-flash
+;;  gptel-backend (gptel-make-gemini "Gemini"
+;;                  :key ""
+;;                  :stream t))
+;;
+;; ;; Necessary for now, because gpt-4.5-preview isn't on their model-list API response yet
+;; (gptel-make-openai "OpenAI-Preview"
+;;   :stream t
+;;   :key ""
+;;   :models '(gpt-4.5-preview))
 
-(gptel-make-anthropic "Claude"
-  :stream t
-  :key "")
-
-(setq!
- gptel-model 'gemini-2.0-flash
- gptel-backend (gptel-make-gemini "Gemini"
-                 :key ""
-                 :stream t))
-
-;; Necessary for now, because gpt-4.5-preview isn't on their model-list API response yet
-(gptel-make-openai "OpenAI-Preview"
-  :stream t
-  :key ""
-  :models '(gpt-4.5-preview))
-
-(use-package! exec-path-from-shell)
-(when (memq window-system '(mac ns x))
-  (exec-path-from-shell-initialize))
+;; (use-package! exec-path-from-shell)
+;;(when (memq window-system '(mac ns x))
+;;  (exec-path-from-shell-initialize))
 
 (with-eval-after-load 'lsp-mode
   (setq lsp-headerline-breadcrumb-enable t)
@@ -73,8 +73,8 @@
   (setq lsp-ui-doc-enable t)
   (setq lsp-ui-doc-enhanced-markdown t))
 
-(use-package! request)
-(use-package! tika)
+;; (use-package! request)
+;; (use-package! tika)
 
 (setq sql-connection-alist
       '((sprocket-main (sql-product 'postgres)
@@ -89,32 +89,9 @@
 (setq sqlformat-command 'pgformatter)
 (setq sqlformat-args '("-s2" "-g"))
 
-(use-package! poet-theme)
-(add-hook 'text-mode-hook
-          (lambda ()
-            (variable-pitch-mode 1)))
-
-(add-to-list
- 'default-frame-alist'(ns-transparent-titlebar . t))
-(add-to-list
- 'default-frame-alist'(ns-appearance . light))
-
-(require 'org-superstar)
-(add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
-
-(use-package exec-path-from-shell)
-(exec-path-from-shell-initialize)
-(use-package whisper
-  :load-path "/Users/jacbaile/Workspace/whisper.el/"
-  :bind ("C-M-r" . whisper-run)
-  :config
-  (setq whisper-install-directory "/tmp/"
-        whisper-model "large-v3"
-        whisper-language "en"
-        whisper-translate nil
-        whisper-use-threads (/ (num-processors) 2)
-        whisper--ffmpeg-input-device ":1"))
-
+(map! :leader
+      :prefix "m"
+      "s t" #'org-insert-heading)
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets. It is optional.
 ;; (setq user-full-name "John Doe"
