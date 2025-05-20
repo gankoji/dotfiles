@@ -9,4 +9,5 @@ if status is-interactive
     set -Ux nvm_default_version v23.11.0
     set -gx EDITOR nvim
     set -gx OPENAI_API_KEY $(gopass show ai/openai-key)
+    fish_vi_key_bindings
 end
