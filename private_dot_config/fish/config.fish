@@ -15,5 +15,4 @@ if status is-interactive
     set -gx TAVILY_API_KEY $(gopass show ai/tavily-key)
     fish_vi_key_bindings
 
-    emacs --daemon &
 end
