@@ -7,12 +7,17 @@ if status is-interactive
     zoxide init fish | source
 
     # NVM/NPM/Node.js config
-    set -Ux nvm_default_version v23.11.0
+    if test -x nvm
+        set -Ux nvm_default_version v23.11.0
+    end
+    if test -x gopass
+        set -gx OPENAI_API_KEY $(gopass show ai/openai-key)
+        set -gx ANTHROPIC_API_KEY $(gopass show ai/anthropic-key)
+        set -gx GEMINI_API_KEY $(gopass show ai/gemini-key)
+        set -gx TAVILY_API_KEY $(gopass show ai/tavily-key)
+    end
+
     set -gx EDITOR nvim
-    set -gx OPENAI_API_KEY $(gopass show ai/openai-key)
-    set -gx ANTHROPIC_API_KEY $(gopass show ai/anthropic-key)
-    set -gx GEMINI_API_KEY $(gopass show ai/gemini-key)
-    set -gx TAVILY_API_KEY $(gopass show ai/tavily-key)
     fish_vi_key_bindings
 
 end
